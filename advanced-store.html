@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সাহেব আলী শাড়ি ঘর | Advanced Luxury Store</title>
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --bg-2: #14151a;
+      --panel: #17181d;
+      --panel-2: #1d1d25;
+      --gold: #d8b57d;
+      --gold-soft: #f1d7a2;
+      --gold-deep: #a9783d;
+      --text: #f7f3ee;
+      --muted: #bbb0a6;
+      --line: rgba(255,255,255,0.08);
+      --success: #5ecf8d;
+      --shadow: 0 25px 60px rgba(0,0,0,0.28);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #09090b 0%, #111217 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input { font: inherit; }
+    .container { width: min(1220px, calc(100% - 28px)); margin: 0 auto; }
+
+    .topbar {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 10px 0;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .offers { display:flex; gap:18px; flex-wrap:wrap; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11,11,13,0.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 210px;
+    }
+    .brand-mark {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+      color: #1c120c; font-weight: 900; font-size: 1.5rem;
+      display: grid; place-items: center;
+      box-shadow: 0 10px 30px rgba(216,181,125,0.25);
+    }
+    .brand-text h2 {
+      font-size: 1.08rem; color: var(--gold-soft);
+      letter-spacing: 0.04em;
+    }
+    .brand-text p { color: var(--muted); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .nav {
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 28px;
+    }
+    .nav a {
+      position: relative; color: var(--muted); font-weight: 600;
+      transition: 0.25s ease;
+    }
+    .nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -8px; width: 0; height: 2px; background: var(--gold); transition: 0.25s ease;
+    }
+    .nav a:hover, .nav a.active { color: var(--text); }
+    .nav a:hover::after, .nav a.active::after { width: 100%; }
+
+    .header-actions { display:flex; align-items:center; gap:12px; }
+    .search {
+      width: 260px; display:flex; align-items:center; gap:8px; background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:999px; padding:10px 14px; color:var(--muted);
+    }
+    .search input {
+      width: 100%; background: transparent; border:none; outline:none; color: var(--text); font-size: 0.95rem;
+    }
+    .search input::placeholder { color: var(--muted); }
+
+    .icon-btn {
+      width: 42px; height: 42px; display:grid; place-items:center; border-radius:50%; background: rgba(255,255,255,0.02); border:1px solid var(--line); position: relative; color: var(--text);
+    }
+    .cart-badge {
+      position: absolute; top: -5px; right: -3px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: #17120d; display:grid; place-items:center; font-size: 10px; font-weight: 900;
+    }
+
+    .hero {
+      padding: 32px 0 12px;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(120deg, rgba(255,255,255,0.015), rgba(216,181,125,0.05));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .hero-left {
+      padding: 72px 52px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-items:center; width: fit-content; padding: 9px 15px; border-radius: 999px; border:1px solid rgba(216,181,125,0.22); background: rgba(216,181,125,0.06); color: var(--gold-soft); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 800;
+    }
+    .hero-left h1 {
+      margin: 18px 0 16px; font-size: clamp(2.8rem, 4vw, 5rem); line-height: 0.96; letter-spacing: -0.05em;
+    }
+    .hero-left p {
+      color: var(--muted); max-width: 560px; font-size: 1.04rem;
+      margin-bottom: 28px;
+    }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:30px; }
+    .btn {
+      display: inline-flex; align-items:center; justify-content:center; gap:8px; border-radius: 999px; padding: 16px 28px; font-weight: 800; transition: 0.2s ease; cursor:pointer; border:none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+      color: #17120d;
+      box-shadow: 0 16px 28px rgba(216,181,125,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.02); color: var(--text); border:1px solid var(--line);
+    }
+    .hero-metrics {
+      display: flex; flex-wrap:wrap; gap:24px;
+    }
+    .metric strong {
+      display: block; font-size: 1.8rem; color: var(--gold-soft); margin-bottom: 5px; line-height: 1;
+    }
+    .metric span { color: var(--muted); font-size: 0.88rem; }
+
+    .hero-right {
+      position: relative; display:grid; place-items:center; padding: 26px; background: radial-gradient(circle at center, rgba(216,181,125,0.1), transparent 32%);
+    }
+    .showcase-wrap { position:relative; width:min(460px,100%); }
+    .promo-badge {
+      position:absolute; right:14px; top:18px; padding: 10px 14px; border-radius: 12px; background: rgba(94,207,141,0.1); color: #aff0c8; border:1px solid rgba(94,207,141,0.3); font-size: 0.8rem; font-weight: 800; z-index:3;
+    }
+    .showcase-card {
+      border-radius: 26px; overflow:hidden; border:1px solid rgba(216,181,125,0.18); background: rgba(255,255,255,0.02); box-shadow: var(--shadow);
+    }
+    .showcase-card img {
+      width:100%; height:500px; object-fit:cover;
+    }
+    .showcase-info {
+      background: rgba(21,21,25,0.8); border-top: 1px solid var(--line); display:flex; justify-content:space-between; gap:16px; align-items:center; padding: 18px 20px 20px;
+    }
+    .showcase-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
+    .showcase-info p { color: var(--muted); font-size: 0.84rem; }
+    .price-badge {
+      background: rgba(216,181,125,0.08); border:1px solid rgba(216,181,125,0.18); color: var(--gold-soft); border-radius: 12px; padding: 10px 12px; font-weight: 800; white-space: nowrap;
+    }
+    .floating-card {
+      position:absolute; left:-18px; bottom:28px; display:flex; align-items:center; gap:12px; background: rgba(17,17,21,0.9); border:1px solid var(--line); border-radius: 18px; padding: 12px 14px; box-shadow: 0 20px 30px rgba(0,0,0,0.25);
+    }
+    .mini-star {
+      width: 42px; height:42px; border-radius:50%; display:grid; place-items:center; background: linear-gradient(135deg, #f0d59b, #c58f49); color: #1b120b; font-weight: 900;
+    }
+    .floating-card strong { display:block; font-size: 0.9rem; }
+    .floating-card span { color: var(--muted); font-size: 0.74rem; }
+
+    .section { padding: 44px 0 10px; }
+    .section-head {
+      display:flex; align-items:end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom: 22px;
+    }
+    .section-head h2 { font-size: clamp(1.8rem, 2.2vw, 2.7rem); letter-spacing: -0.04em; }
+    .section-head p { color: var(--muted); max-width: 620px; }
+
+    .chip-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .chip {
+      background: rgba(255,255,255,0.02); color: var(--muted); border:1px solid var(--line); border-radius: 999px; padding:9px 15px; cursor:pointer; font-weight:700; transition:0.2s ease;
+    }
+    .chip.active, .chip:hover { border-color: rgba(216,181,125,0.3); color: var(--gold-soft); background: rgba(216,181,125,0.08); }
+
+    .category-grid {
+      display:grid; grid-template-columns: repeat(4, minmax(200px,1fr)); gap:18px;
+    }
+    .category-card {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius: 24px; overflow:hidden; box-shadow: 0 16px 28px rgba(0,0,0,0.08);
+    }
+    .category-card img { height: 180px; object-fit: cover; width:100%; }
+    .category-body { padding:18px 16px; }
+    .category-body h3 { font-size: 1.08rem; margin-bottom: 6px; }
+    .category-body p { color: var(--muted); font-size: 0.9rem; }
+
+    .products-grid {
+      display:grid; grid-template-columns: repeat(4, minmax(220px, 1fr)); gap:22px;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius: 22px; overflow:hidden; transition:0.25s ease; box-shadow: 0 16px 26px rgba(0,0,0,0.1);
+    }
+    .product-card:hover { transform: translateY(-5px); border-color: rgba(216,181,125,0.22); }
+    .product-thumb { position:relative; height:260px; background:#17181d; }
+    .product-thumb img { width:100%; height:100%; object-fit:cover; }
+    .badge {
+      position:absolute; top:12px; left:12px; background: rgba(17,17,21,0.82); border:1px solid rgba(216,181,125,0.18); color: var(--gold-soft); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:800; padding:7px 10px; border-radius:999px;
+    }
+    .wishlist {
+      position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background: rgba(17,17,21,0.8); border:1px solid var(--line); color:#fff; display:grid; place-items:center; cursor:pointer;
+    }
+    .product-body { padding:18px 16px 16px; }
+    .meta { display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; color: var(--muted); letter-spacing:0.06em; text-transform:uppercase; }
+    .product-title { font-size:1.08rem; margin:10px 0 8px; }
+    .rating { color: #f0c968; font-size:0.9rem; margin-bottom:12px; }
+    .product-footer {
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+    }
+    .price-box { display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; }
+    .price { font-weight:900; font-size:1.35rem; color: var(--gold-soft); }
+    .old-price { text-decoration: line-through; font-size:0.82rem; color: var(--muted); }
+    .cart-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); color:#1a120c; border-radius:999px; font-weight:800; padding:10px 14px; display:inline-flex; align-items:center; justify-content:center;
+    }
+
+    .feature-boxes {
+      display:grid; grid-template-columns: repeat(4, minmax(200px,1fr)); gap:20px;
+    }
+    .feature-box {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:20px; text-align:center; padding:28px 18px; box-shadow: 0 12px 24px rgba(0,0,0,0.07);
+    }
+    .feature-icon {
+      width:64px; height:64px; border-radius:18px; display:grid; place-items:center; background: rgba(216,181,125,0.08); border:1px solid rgba(216,181,125,0.18); margin:0 auto 14px; color:var(--gold-soft); font-size:1.8rem;
+    }
+    .feature-box h4 { margin-bottom:6px; font-size:1.08rem; }
+    .feature-box p { color: var(--muted); font-size:0.9rem; }
+
+    .testimonials { display:grid; grid-template-columns: repeat(3, minmax(220px,1fr)); gap:22px; }
+    .testimonial {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:20px; padding:24px 22px; box-shadow: 0 18px 28px rgba(0,0,0,0.08);
+    }
+    .stars { color: #f2ce69; letter-spacing: 2px; margin-bottom: 16px; }
+    .testimonial p { color: var(--muted); margin-bottom: 18px; }
+    .person { display:flex; align-items:center; gap:12px; }
+    .avatar {
+      width: 44px; height:44px; border-radius:50%; display:grid; place-items:center; font-weight:900; background: linear-gradient(135deg, #d8b57d, #8b6a41); color:#130d0a;
+    }
+    .person strong { display:block; }
+    .person span { color: var(--muted); font-size:0.8rem; }
+
+    .promo-strip {
+      margin: 42px 0 20px; padding: 18px 20px; border-radius: 22px; background: linear-gradient(135deg, rgba(216,181,125,0.08), rgba(255,255,255,0.02)); border:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    }
+    .promo-strip h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
+    .promo-strip p { color: var(--muted); }
+    .cta-box {
+      background: rgba(12,12,14,0.7); border:1px solid var(--line); border-radius: 14px; padding: 12px 16px; font-weight:700;
+    }
+
+    .newsletter {
+      margin: 36px 0 18px; background: linear-gradient(135deg, rgba(216,181,125,0.09), rgba(255,255,255,0.02)); border:1px solid var(--line); border-radius: 24px; padding: 28px 22px; display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+    }
+    .newsletter h3 { font-size: clamp(1.7rem, 2vw, 2.3rem); margin-bottom: 6px; }
+    .newsletter p { color: var(--muted); }
+    .newsletter-form {
+      display:flex; align-items:center; background: rgba(0,0,0,0.12); border:1px solid var(--line); border-radius: 999px; padding: 8px 10px 8px 18px; min-width: min(100%, 450px);
+    }
+    .newsletter-form input {
+      flex:1; background: transparent; border:none; outline:none; color: var(--text); padding:12px 10px;
+    }
+    .newsletter-form button {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); color:#17110d; font-weight:800; border:none; border-radius:999px; padding:12px 18px; cursor:pointer;
+    }
+
+    footer {
+      background: #0b0b0d;
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      padding: 42px 0 22px;
+    }
+    .footer-grid {
+      display:grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap:28px;
+    }
+    .footer-brand h3 { color: var(--gold-soft); margin-bottom: 10px; font-size: 1.4rem; }
+    .footer-brand p, .footer-col li, .footer-col p { color: var(--muted); line-height:1.9; }
+    .footer-col h4 { margin-bottom: 10px; }
+    .footer-col ul { list-style:none; display:grid; gap:8px; }
+    .copyright {
+      margin-top: 28px; padding-top:18px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; color: var(--muted); font-size:0.92rem;
+    }
+
+    .floating-whatsapp {
+      position: fixed; right: 18px; bottom: 18px; z-index: 100;
+      width: 62px; height: 62px; border-radius:50%; display:grid; place-items:center; background: linear-gradient(135deg, #25d366, #1ea952); color: white; font-size: 1.75rem; box-shadow: 0 18px 35px rgba(37,211,102,0.35);
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, minmax(220px,1fr)); }
+      .category-grid { grid-template-columns: repeat(2, minmax(180px,1fr)); }
+      .feature-boxes { grid-template-columns: repeat(2, minmax(180px,1fr)); }
+      .testimonials { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, minmax(180px,1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .header-inner { flex-wrap:wrap; }
+      .brand { width:100%; justify-content:center; }
+      .nav { width:100%; justify-content:center; }
+      .header-actions { width:100%; justify-content:center; }
+      .search { width:100%; }
+      .hero-left { padding: 48px 22px 32px; }
+      .products-grid, .category-grid, .feature-boxes, .footer-grid { grid-template-columns: 1fr; }
+      .newsletter, .promo-strip { padding-left: 18px; padding-right: 18px; }
+      .newsletter-form { width:100%; min-width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <span>🚚 ফ্রি ডেলিভারি ২,৫০০+ টাকার উপর</span>
+      <div class="offers">
+        <span>✨ নতুন কালেকশন</span>
+        <span>💎 ১০% অফ প্রথম অর্ডারে</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-mark">S</div>
+        <div class="brand-text">
+          <h2>সাহেব আলী শাড়ি ঘর</h2>
+          <p>Luxury Collection</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#" class="active">হোম</a>
+        <a href="#categories">ক্যাটাগরি</a>
+        <a href="#featured">ফিচার্ড</a>
+        <a href="#offers">অফার</a>
+        <a href="#reviews">রিভিউ</a>
+      </nav>
+
+      <div class="header-actions">
+        <label class="search" aria-label="Search">
+          <span>⌕</span>
+          <input type="text" placeholder="পণ্য খুঁজুন..." />
+        </label>
+        <button class="icon-btn" aria-label="Wishlist">♡</button>
+        <a href="cart.html" class="icon-btn" aria-label="Cart">
+          🛒
+          <span class="cart-badge">3</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <span class="eyebrow">Luxury Fashion House</span>
+          <h1>Elegance in every drape.</h1>
+          <p>
+            Premium fabrics, refined detailing, and couture-inspired style crafted for weddings, special occasions,
+            and modern everyday luxury. Curated elegance, right at your fingertips.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#featured" class="btn btn-primary">শপ নাও</a>
+            <a href="#categories" class="btn btn-secondary">ব্রাউজ কালেকশন</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>25k+</strong>
+              <span>কাস্টমার</span>
+            </div>
+            <div class="metric">
+              <strong>4.9/5</strong>
+              <span>রেটিং</span>
+            </div>
+            <div class="metric">
+              <strong>120+</strong>
+              <span>কলেকশন</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="showcase-wrap">
+            <div class="promo-badge">-30% OFF</div>
+            <div class="showcase-card">
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Luxury fashion" />
+              <div class="showcase-info">
+                <div>
+                  <h3>সোনালি গয়না শাড়ি</h3>
+                  <p>ওয়েডিং কালেকশন</p>
+                </div>
+                <div class="price-badge">৳ ৪,৯৯৯</div>
+              </div>
+            </div>
+            <div class="floating-card">
+              <div class="mini-star">★</div>
+              <div>
+                <strong>১০,০০০+</strong>
+                <span>সন্তুষ্ট গ্রাহক</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>ক্যাটাগরি</h2>
+            <p>আমাদের বিশেষভাবে নির্বাচিত premium fashion essentials designed for every moment.</p>
+          </div>
+        </div>
+
+        <div class="chip-row">
+          <button class="chip active">সব</button>
+          <button class="chip">শাড়ি</button>
+          <button class="chip">সালোয়ার</button>
+          <button class="chip">ব্রাইডাল</button>
+          <button class="chip">গয়না</button>
+        </div>
+
+        <div class="category-grid" style="margin-top: 24px;">
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Bridal saree" />
+            <div class="category-body">
+              <h3>ব্রাইডাল শাড়ি</h3>
+              <p>Luxury bridal elegance</p>
+            </div>
+          </article>
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Luxury saree" />
+            <div class="category-body">
+              <h3>ফ্যাশন শাড়ি</h3>
+              <p>Trending luxury drapes</p>
+            </div>
+          </article>
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" alt="Pastel saree" />
+            <div class="category-body">
+              <h3>পাস্টেল কালেকশন</h3>
+              <p>Soft floral statement</p>
+            </div>
+          </article>
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=800&q=80" alt="Accessories" />
+            <div class="category-body">
+              <h3>গয়না ও সাজসজ্জা</h3>
+              <p>Complete styling set</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>ফিচার্ড প্রোডাক্ট</h2>
+          </div>
+          <a href="product.html" style="color: var(--gold-soft); font-weight: 700;">সব দেখুন →</a>
+        </div>
+
+        <div class="products-grid">
+          <article class="product-card">
+            <div class="product-thumb">
+              <span class="badge">new</span>
+              <button class="wishlist" aria-label="Wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80" alt="red saree" />
+            </div>
+            <div class="product-body">
+              <div class="meta"><span>শাড়ি</span><span>৪.৮★</span></div>
+              <h3 class="product-title">রেড গ্ল্যামার শাড়ি</h3>
+              <div class="rating">★★★★★</div>
+              <div class="product-footer">
+                <div class="price-box">
+                  <span class="price">৳ ৩,৯৯৯</span>
+                  <span class="old-price">৳ ৪,৯৯৯</span>
+                </div>
+                <a href="product.html" class="cart-btn">কার্টে</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-thumb">
+              <span class="badge">hot</span>
+              <button class="wishlist" aria-label="Wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80" alt="gold saree" />
+            </div>
+            <div class="product-body">
+              <div class="meta"><span>বেস্ট সেলার</span><span>৪.৯★</span></div>
+              <h3 class="product-title">গোল্ডেন ড্রেপ শাড়ি</h3>
+              <div class="rating">★★★★★</div>
+              <div class="product-footer">
+                <div class="price-box">
+                  <span class="price">৳ ৪,৪৯৯</span>
+                  <span class="old-price">৳ ৫,৮৯৯</span>
+                </div>
+                <a href="product.html" class="cart-btn">কার্টে</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-thumb">
+              <span class="badge">premium</span>
+              <button class="wishlist" aria-label="Wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80" alt="pastel saree" />
+            </div>
+            <div class="product-body">
+              <div class="meta"><span>ফ্যাশন</span><span>৪.৭★</span></div>
+              <h3 class="product-title">পাস্টেল ফ্লাওয়ার শাড়ি</h3>
+              <div class="rating">★★★★★</div>
+              <div class="product-footer">
+                <div class="price-box">
+                  <span class="price">৳ ২,৮৯৯</span>
+                  <span class="old-price">৳ ৩,৬৯৯</span>
+                </div>
+                <a href="product.html" class="cart-btn">কার্টে</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-thumb">
+              <span class="badge">limited</span>
+              <button class="wishlist" aria-label="Wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=900&q=80" alt="bridal saree" />
+            </div>
+            <div class="product-body">
+              <div class="meta"><span>ব্রাইডাল</span><span>৫.০★</span></div>
+              <h3 class="product-title">জুয়েলটোন ব্রাইডাল শাড়ি</h3>
+              <div class="rating">★★★★★</div>
+              <div class="product-footer">
+                <div class="price-box">
+                  <span class="price">৳ ৬,৯৯৯</span>
+                  <span class="old-price">৳ ৮,৪৯৯</span>
+                </div>
+                <a href="product.html" class="cart-btn">কার্টে</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="offers">
+      <div class="container">
+        <div class="promo-strip">
+          <div>
+            <h3>ফ্ল্যাশ সেল চলছে</h3>
+            <p>সর্বোচ্চ ৫০% পর্যন্ত ছাড়। আজই অর্ডার করুন।</p>
+          </div>
+          <div class="cta-box">⏳ 02:14:38 left</div>
+        </div>
+
+        <div class="feature-boxes" style="margin-top: 26px;">
+          <div class="feature-box">
+            <div class="feature-icon">🚚</div>
+            <h4>ফ্রি ডেলিভারি</h4>
+            <p>২,৫০০+ টাকার অর্ডারে ফ্রি শিপিং</p>
+          </div>
+          <div class="feature-box">
+            <div class="feature-icon">💳</div>
+            <h4>সেফ পেমেন্ট</h4>
+            <p>ডেবিট/ক্রেডিট ও COD সুরক্ষিত</p>
+          </div>
+          <div class="feature-box">
+            <div class="feature-icon">↩️</div>
+            <h4>৭ দিন রিটার্ন</h4>
+            <p>নিরাপদ exchange ও return</p>
+          </div>
+          <div class="feature-box">
+            <div class="feature-icon">🎧</div>
+            <h4>২৪/৭ সাপোর্ট</h4>
+            <p>হটলাইন ও WhatsApp সাপোর্ট</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>গ্রাহক মতামত</h2>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“কাপড়ের মান খুব ভালো, ডেলিভারি একদম দ্রুত, আর শাড়ি দেখতে অসাধারণ। খুবই সন্তুষ্ট।”</p>
+            <div class="person">
+              <div class="avatar">R</div>
+              <div>
+                <strong>রাইহানা</strong>
+                <span>ঢাকা</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“বিয়ের জন্য শাড়ি কিনেছিলাম। রঙ, কাপড়, ও ফিনিশ সবকিছুই খুব সুন্দর। Recommend!”</p>
+            <div class="person">
+              <div class="avatar">M</div>
+              <div>
+                <strong>মুনিয়া</strong>
+                <span>চট্টগ্রাম</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“সার্ভিস খুব ভালো, পেমেন্ট ও ডেলিভারি দুটোই smooth ছিল। আবার অর্ডার করব।”</p>
+            <div class="person">
+              <div class="avatar">S</div>
+              <div>
+                <strong>শারমিন</strong>
+                <span>রাজশাহী</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="newsletter">
+        <div>
+          <h3>নিউজলেটারে সাবস্ক্রাইব করুন</h3>
+          <p>নতুন কালেকশন, বিশেষ ছাড়, এবং ফ্যাশন আপডেট পান</p>
+        </div>
+
+        <form class="newsletter-form">
+          <input type="email" placeholder="আপনার ইমেইল লিখুন" />
+          <button type="submit">সাবস্ক্রাইব</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>সাহেব আলী শাড়ি ঘর</h3>
+          <p>সুন্দর ফ্যাশন, premium quality, এবং পারফেক্ট সেবা—এটাই আমাদের ব্র্যান্ডের পরিচয়।</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>কোম্পানি</h4>
+          <ul>
+            <li>আমাদের সম্পর্কে</li>
+            <li>ক্যারিয়ার</li>
+            <li>ব্লগ</li>
+            <li>যোগাযোগ</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>সুবিধা</h4>
+          <ul>
+            <li>শিপিং ও রিটার্ন</li>
+            <li>সার্ভিস পলিসি</li>
+            <li>প্রাইভেসি</li>
+            <li>FAQ</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>যোগাযোগ</h4>
+          <ul>
+            <li>📍 ঢাকা, বাংলাদেশ</li>
+            <li>📞 +৮৮ ০১৭১২-৩৪৫৬৭৮</li>
+            <li>✉️ hello@sahibalisarighor.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <span>© <span id="year"></span> সাহেব আলী শাড়ি ঘর। সর্বস্বত্ব সংরক্ষিত।</span>
+        <span>Privacy Policy • Terms</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="floating-whatsapp" href="https://wa.me/8801712345678?text=Assalamualaikum%2C%20I%20want%20to%20order%20a%20saree." target="_blank" aria-label="WhatsApp">✆</a>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.querySelectorAll('.chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('ধন্যবাদ! আপনার ইমেইলে আপডেট পাঠানো হবে।');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
